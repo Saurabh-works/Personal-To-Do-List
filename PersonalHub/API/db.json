@@ -1,0 +1,34 @@
+{
+  "Task": [
+    {
+      "id": "43af",
+      "taskName": "Complete React Playlist",
+      "DOC": "2024-02-14",
+      "taskinfo": "i want to complete react playlist before the 29 feb"
+    },
+    {
+      "id": "9ea4",
+      "taskName": "Insem Study",
+      "DOC": "2024-02-23",
+      "taskinfo": "starting insem study after the interview is completed"
+    },
+    {
+      "id": "bbec",
+      "taskName": "React project",
+      "DOC": "2024-02-15",
+      "taskinfo": "i want to complete my react project side by side"
+    },
+    {
+      "id": "cb12",
+      "taskName": "regular drinking water",
+      "DOC": "2024-02-24",
+      "taskinfo": "i want to start drinking water on regular basis"
+    },
+    {
+      "id": "08b5",
+      "taskName": "Complete java ques",
+      "DOC": "2024-02-15",
+      "taskinfo": "just done it"
+    }
+  ]
+}
