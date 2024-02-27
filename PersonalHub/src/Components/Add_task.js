@@ -39,7 +39,6 @@ function Add_task() {
                     id="Id"
                     value={id}
                     onChange={(e) => setid(e.target.value)}
-                    // placeholder="Enter task name"
                     required
                 />
                 <label htmlFor="taskname">Enter The Task</label>
