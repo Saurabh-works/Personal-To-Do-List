@@ -8,92 +8,86 @@ function View_tasks() {
     const [taskName, setTaskName] = useState('');
     const [DOC, setDOC] = useState("");
     const [taskinfo, settaskinfo] = useState("");
-    const [selectedTaskId, setSelectedTaskId] = useState(null);
+    const [id, setid] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:3000/Task').then((result) => {
-            result.json().then((res) => {
-                setdata(res);
+        getUserDetails();
+    }, [])
+
+
+
+    const getUserDetails = () => {
+        fetch("http://localhost:3000/Task").then((result) => {
+            result.json().then((new_result) => {
+                setdata(new_result);
             })
         })
-    }, [])
-
-    useEffect(() => {
-        Remove_data();
-    }, [])
+    }
 
 
-    function remove(id) {
-        console.log(id);
-        fetch(`http://localhost:3000/Task/${selectedTaskId}`, {
+    const deleteUser = (id) => {
+        fetch(`http://localhost:3000/Task/${id}`, {    // here we need to priovide id of record.
             method: "DELETE"
         }).then((result) => {
-            result.json().then((res) => {
-                console.log(res);
-                Remove_data();
+            result.json().then((new_result) => {
+                // console.log(new_result);    // printing new result.
+                alert("Task Deleted Successfully....")
+                getUserDetails();     // calling getUserDetails function again,and we updated the states in getUserDetails() so page will re-reder again.
             })
         })
     }
 
-    function Remove_data() {
-        fetch("http://localhost:8000/User").then((result) => {
-            result.json().then((res) => {
-                setdata(res);
-                setSelectedTaskId(res[0].selectedTaskId);
-                setTaskName(res[0].taskName);
-                setDOC(res[0].DOC);
-                settaskinfo(res[0].taskinfo);
-            })
-        })
 
-    }
-
-    function Selectuser(id) {
+    function selectUser(id) {
         let val = data[id - 1]
-        setSelectedTaskId(val.selectedTaskId);
+        setid(val.id);
         setTaskName(val.taskName);
         setDOC(val.DOC);
         settaskinfo(val.taskinfo);
     }
 
-
-    function updatedata(){
-        let all_data = {selectedTaskId, taskName, DOC, taskinfo};
-        fetch(`http://localhost:8000/User/${selectedTaskId}`, {
+    // Update data with PUT method :
+    const updateUser = () => {
+        let item = { id, taskName, DOC, taskinfo };  // taking value in object
+        fetch(`http://localhost:3000/Task/${id}`, {
             method: "PUT",
-            headers:{
+            headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(all_data)
+            body: JSON.stringify(item)
         }).then((result) => {
-            result.json().then((res) => {
-                console.log(res);
-                Remove_data();
+            result.json().then((new_result) => {
+                // console.log(new_result);
+                alert("Task Updated Successfully....")
+                getUserDetails(); // calling getUserDetails function again,and we updated the states in getUserDetails() so page will re-reder again.
             })
         })
     }
 
-    return (
-      <>
-        <h1>View Component</h1>
-        <form>
-            <label htmlFor="taskname">Enter The Task</label>
-            <input type="text" value={taskName}  id="taskname" onChange={(e)=>setTaskName(e.target.value)} /> <br /> <br />
+   return (
+        <>
+            <h1>View Component</h1>
+            <form>
+                <label htmlFor="Id">Task Id</label>
+                <input type="text" value={id} id="Id" onChange={(e) => setid(e.target.value)} /> <br /> <br />
 
-            <label htmlFor="DOC">Enter The date Of Completion</label>
-            <input type="Date" value={DOC}  onChange={(e)=>setDOC(e.target.value)} /> <br /> <br />
 
-            <label htmlFor="info">Enter the any extra infomation about Task</label>
-            <input type="text" value={taskinfo} onChange={(e)=>settaskinfo(e.target.value)}/> <br /> <br />
-            <button onClick={updatedata}>Submit</button> <br />
-        </form>
+                <label htmlFor="taskname">Enter The Task</label>
+                <input type="text" value={taskName} id="taskname" onChange={(e) => setTaskName(e.target.value)} /> <br /> <br />
 
-        <Table striped border={2}>
+                <label htmlFor="DOC">Enter The date Of Completion</label>
+                <input type="Date" value={DOC} onChange={(e) => setDOC(e.target.value)} /> <br /> <br />
+
+                <label htmlFor="info">Enter the any extra infomation about Task</label>
+                <input type="text" value={taskinfo} onChange={(e) => settaskinfo(e.target.value)} /> <br /> <br />
+                <button onClick={updateUser}>Submit</button> <br />
+            </form>
+
+            <Table striped border={2}>
                 <thead>
                     <tr>
                         <td>id</td>
-                        <td>index</td>
                         <td>Task Name</td>
                         <td>Date Of Completion</td>
                         <td>Details Of Task</td>
@@ -103,21 +97,20 @@ function View_tasks() {
                 </thead>
                 <tbody>
                     {
-                        data.map((items, index) => 
+                        data.map((items, index) =>
                             <tr key={index}>
-                                <td>{index + 1}</td>
                                 <td>{items.id}</td>
                                 <td>{items.taskName}</td>
                                 <td>{items.DOC}</td>
                                 <td>{items.taskinfo}</td>
-                                <td><button onClick={() => { Selectuser(items.id) }}>Update</button></td>
-                                <td><button onClick={() => { remove(items.id) }}>Delete</button></td>
+                                <td><button onClick={() => { selectUser(items.id) }}>Edit</button></td>
+                                <td><button onClick={() => { deleteUser(items.id) }}>Delete</button></td>
                             </tr>
                         )
                     }
                 </tbody>
             </Table>
-      </>
+        </>
     )
 }
 export default View_tasks;

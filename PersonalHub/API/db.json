@@ -1,34 +1,28 @@
 {
   "Task": [
     {
-      "id": "43af",
-      "taskName": "Complete React Playlist",
-      "DOC": "2024-02-14",
+      "id": "1",
+      "taskName": "Complete React Playlist 1",
+      "DOC": "2024-02-06",
       "taskinfo": "i want to complete react playlist before the 29 feb"
     },
     {
-      "id": "9ea4",
-      "taskName": "Insem Study",
-      "DOC": "2024-02-23",
-      "taskinfo": "starting insem study after the interview is completed"
-    },
-    {
-      "id": "bbec",
-      "taskName": "React project",
-      "DOC": "2024-02-15",
-      "taskinfo": "i want to complete my react project side by side"
-    },
-    {
-      "id": "cb12",
-      "taskName": "regular drinking water",
-      "DOC": "2024-02-24",
-      "taskinfo": "i want to start drinking water on regular basis"
-    },
-    {
-      "id": "08b5",
+      "id": "2",
       "taskName": "Complete java ques",
+      "DOC": "2024-02-13",
+      "taskinfo": "hello"
+    },
+    {
+      "id": "3",
+      "taskName": "Complete java opps concepts",
       "DOC": "2024-02-15",
-      "taskinfo": "just done it"
+      "taskinfo": "complete the cocepts"
+    },
+    {
+      "id": "4",
+      "taskName": "abc",
+      "DOC": "2024-02-17",
+      "taskinfo": "i want to create a to do list website where i can insert, delete, or update my task which is on my add task page, then on view task page contain all the task. basically add task take information contain name of task, date of creation (automatically taken), date of completion, remainder on date. important detail contain a verious session contain links"
     }
   ]
 }
