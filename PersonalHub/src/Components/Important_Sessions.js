@@ -16,7 +16,7 @@ function Important_Sessions() {
     const [Personaldatainfo, setPersonaldatainfo] = useState(" ");
 
 
-    // first one
+    // first one 
     useEffect(() => {
         getLinkDetails();
         getPersonalDetails();
