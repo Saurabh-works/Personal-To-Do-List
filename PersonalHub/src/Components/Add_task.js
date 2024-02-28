@@ -33,7 +33,7 @@ function Add_task() {
         <>
             <h1>Add_task Page</h1>
             <form onSubmit={AddUser}>
-            <label htmlFor="Id">Task Id</label>
+                <label htmlFor="Id">Task Id</label>
                 <input
                     type="number"
                     id="Id"
@@ -41,6 +41,7 @@ function Add_task() {
                     onChange={(e) => setid(e.target.value)}
                     required
                 />
+
                 <label htmlFor="taskname">Enter The Task</label>
                 <input
                     type="text"
@@ -69,7 +70,6 @@ function Add_task() {
                     placeholder="Enter task Info"
                     required
                 />
-
  
                 <button type="submit">Add Task</button>
             </form>

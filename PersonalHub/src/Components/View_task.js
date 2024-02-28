@@ -87,12 +87,12 @@ function View_tasks() {
             <Table striped border={2}>
                 <thead>
                     <tr>
-                        <td>id</td>
-                        <td>Task Name</td>
-                        <td>Date Of Completion</td>
-                        <td>Details Of Task</td>
-                        <td>Update Task</td>
-                        <td>Delete Task</td>
+                        <th>id</th>
+                        <th>Task Name</th>
+                        <th>Date Of Completion</th>
+                        <th>Details Of Task</th>
+                        <th>Update Task</th>
+                        <th>Delete Task</th>
                     </tr>
                 </thead>
                 <tbody>
