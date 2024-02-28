@@ -10,7 +10,7 @@ function Important_Sessions() {
     const [linkname, setlinkname] = useState("");
     const [linkURL, setlinkURL] = useState("");
 
-    const [Personaldata, setPersonaldata] = useState(" ");
+    const [Personaldata, setPersonaldata] = useState([]);
     const [PersonaldataId, setPersonaldataId] = useState(" ");
     const [Personaldataname, setPersonaldataname] = useState(" ");
     const [Personaldatainfo, setPersonaldatainfo] = useState(" ");
