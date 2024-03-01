@@ -8,7 +8,7 @@ function Important_Sessions() {
     const [linkdata, setlinkdata] = useState([]);
     const [linkId, setlinkID] = useState("");
     const [linkname, setlinkname] = useState("");
-    const [linkURL, setlinkURL] = useState("");
+    const [linkURL, setlinkURL] = useState(""); 
 
     
     const [Personaldata, setPersonaldata] = useState([]);
