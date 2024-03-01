@@ -23,7 +23,7 @@ function Add_task() {
         })
         alert("Task Added Successfully....");
         setid("");
-        setTaskName("");
+        setTaskName(""); 
         setDOC("");
         settaskinfo("");
         console.log(id, taskName, DOC, taskinfo);
