@@ -11,7 +11,7 @@ function View_tasks() {
     const [id, setid] = useState(null);
 
     useEffect(() => {
-        getUserDetails();
+        getUserDetails(); 
     }, [])
 
 
