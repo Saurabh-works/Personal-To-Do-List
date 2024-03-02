@@ -11,7 +11,7 @@ function Navbar_links(){
                 <li><NavLink className="nav-bar-link" to="/view">View Tasks</NavLink></li>
                 <li><NavLink className="nav-bar-link" to="/Imp">Important Task</NavLink></li>
                 <li><NavLink className="nav-bar-link" to="/login">Login</NavLink></li>
-            </ul>
+            </ul> 
         </>
     )
 }
