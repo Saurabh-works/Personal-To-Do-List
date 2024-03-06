@@ -1,187 +1,71 @@
 import React, {useState, useEffect} from "react";
-import { } from 'react-router-dom';
-import { Table } from 'react-bootstrap';
+import { NavLink, Outlet } from 'react-router-dom';
+import { Card, Button, CardMedia, CardContent, Typography, CardActions, Grid } from "@mui/material";
+import AvengerImg from '../Image/Avenger.jpg';
+import DataImg from '../Image/Data.jpg';
+import LinkImg from '../Image/Link.jpg';
 
 
 
 function Important_Sessions() {
-    const [linkdata, setlinkdata] = useState([]);
-    const [linkId, setlinkID] = useState("");
-    const [linkname, setlinkname] = useState("");
-    const [linkURL, setlinkURL] = useState(""); 
-
     
-    const [Personaldata, setPersonaldata] = useState([]);
-    const [PersonaldataId, setPersonaldataId] = useState(" ");
-    const [Personaldataname, setPersonaldataname] = useState(" ");
-    const [Personaldatainfo, setPersonaldatainfo] = useState(" ");
-
-
-    // first one 
-    useEffect(() => {
-        getLinkDetails();
-        getPersonalDetails();
-    }, [])
-
-
-
-    const getLinkDetails = () => {
-        fetch("http://localhost:8000/Links").then((result) => {
-            result.json().then((new_result) => {
-                setlinkdata(new_result);
-            })
-        })
-    }
-
-    const getPersonalDetails = () => {
-        fetch("http://localhost:9000/data").then((result) => {
-            result.json().then((new_result) => {
-                setPersonaldata(new_result);
-            })
-        })
-    }
-
-
-    // Adding link and deleting link session
-    function Addlink(e){
-        e.preventDefault();
-        let link_data = {linkId, linkname, linkURL};
-        fetch("http://localhost:8000/Links",{
-            method: "POST",
-            headers:{
-                "Accept":"application/json",
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(link_data)
-        })
-        alert("Link Added Successfully....");
-        getLinkDetails();
-        setlinkID("");
-        setlinkname("");
-        setlinkURL("");
-    }
-
-    const deleteLink = (id) => {
-        fetch(`http://localhost:8000/Links/${id}`, {    // here we need to priovide id of record.
-            method: "DELETE"
-        }).then((result) => {
-            result.json().then((new_result) => {
-                alert("Link Deleted Successfully....")
-                getLinkDetails();     // calling getUserDetails function again,and we updated the states in getUserDetails() so page will re-reder again.
-            })
-        })
-    }
-
-    // Adding important personal data
-    function AddPersonaldata(e){
-        e.preventDefault();
-        let link_data1 = {PersonaldataId, Personaldataname, Personaldatainfo};
-        fetch("http://localhost:9000/data",{
-            method: "POST",
-            headers:{
-                "Accept":"application/json",
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(link_data1)
-        })
-        alert("Link Added Successfully....");
-        getPersonalDetails();
-        setPersonaldataId("");
-        setPersonaldataname("");
-        setPersonaldatainfo("");
-    }
-
-    const deletePersonaldata = (id) => {
-        fetch(`http://localhost:9000/data/${id}`, {    // here we need to priovide id of record.
-            method: "DELETE"
-        }).then((result) => {
-            result.json().then((new_result) => {
-                alert("Link Deleted Successfully....")
-                getPersonalDetails();     // calling getUserDetails function again,and we updated the states in getUserDetails() so page will re-reder again.
-            })
-        })
-    }
-
-
     return (
         <>
-            <h1>Important_Sessions Page</h1>
-            <div>
-                <h1>Important links</h1>
-                <form>
-                    <label htmlFor="IdLink" >id</label>
-                    <input type="number" id="IdLink" value={linkId} onChange={(e) => setlinkID(e.target.value)}/>
-                    <label htmlFor="linkname">Enter the Link name:</label>
-                    <input type="text" id="linkname" value={linkname} onChange={(e) => setlinkname(e.target.value)}/>
-                    <label htmlFor="linkURL">Enter the Link URL:</label>
-                    <input type="text" id="linkURL" value={linkURL} onChange={(e) => setlinkURL(e.target.value)}/>
-                    <button onClick={Addlink}>Add link</button>
-                </form>
-                <Table striped border={2}>
-                    <thead>
-                        <tr key="">
-                            <td>Id</td>
-                            <td>Link Name</td>
-                            <td>Link URL</td>
-                            <td>Delete</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            linkdata.map((emailItem, index) =>
-                                <tr key="index">
-                                    <td>{emailItem.linkId}</td>
-                                    <td>{emailItem.linkname}</td>
-                                    <td>{emailItem.linkURL}</td>
-                                    <td><button onClick={() => { deleteLink(emailItem.id) }}>Delete</button></td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </Table>
-
-            </div>
-
-{/* ............................................................................................................... */}
-
-
-            <div>
-                <h1>Important Personal Data</h1>
-                <form>
-                    <label htmlFor="PersonalId" >id</label>
-                    <input type="number" id="PersonalId" value={PersonaldataId} onChange={(e) => setPersonaldataId(e.target.value)}/>
-                    <label htmlFor="Personaldataname">Enter the Data name:</label>
-                    <input type="text" id="Personaldataname" value={Personaldataname} onChange={(e) => setPersonaldataname(e.target.value)}/>
-                    <label htmlFor="Personaldatainfo">Enter the Link URL:</label>
-                    <input type="text" id="Personaldatainfo" value={Personaldatainfo} onChange={(e) => setPersonaldatainfo(e.target.value)}/>
-                    <button onClick={AddPersonaldata}>Add link</button>
-                </form>
-                <Table striped border={2}>
-                    <thead>
-                        <tr key="">
-                            <td>Id</td>
-                            <td>Data Name</td>
-                            <td>Data Info</td>
-                            <td>Delete</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            Personaldata.map((PersonalItem, index1) =>
-                                <tr key="index1">
-                                    <td>{PersonalItem.PersonaldataId}</td>
-                                    <td>{PersonalItem.Personaldataname}</td>
-                                    <td>{PersonalItem.Personaldatainfo}</td>
-                                    <td><button onClick={() => { deletePersonaldata(PersonalItem.id) }}>Delete</button></td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                    
-                </Table>
-
-            </div>
+            <Typography variant="h4" align="center" marginTop={3}>Important Session</Typography>
+            <Grid container spacing={4} justifyContent="center" marginBottom={8} marginTop={3}>
+                <Grid item sx={{ marginRight: 8 }}> {/* Add margin to the right of each item */}
+                    <Card sx={{ maxWidth: 380 }}>
+                        <CardMedia
+                            component="img"
+                            alt="green iguana"
+                            height="140"
+                            image={LinkImg}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                Links
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                Central hub for accessing project resources, enhancing productivity, and facilitating
+                                collaboration among team members.
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small"><NavLink style={{textDecoration:'none', color:'gray', fontWeight:'bold', padding:'1px'}} to={'link'} >Show Link Session</NavLink></Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+                <Grid item> {/* No margin on the last item */}
+                    <Card sx={{ maxWidth: 380 }}>
+                        <CardMedia
+                            component="img"
+                            alt="green iguana"
+                            height="140"
+                            image={DataImg}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                Personal Data
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                            Secure enclave for managing and safeguarding sensitive personal information, 
+                            ensuring compliance with privacy regulations.
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small"><NavLink style={{textDecoration:'none', color:'gray', fontWeight:'bold', padding:'1px'}} to={'data'} >Show Data Session </NavLink></Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+            </Grid>
+            <Outlet></Outlet>
+             
         </>
     )
 }
 export default Important_Sessions;
+
+
+
+
+

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { } from 'react-router-dom';
-import { Table } from 'react-bootstrap';
+import { FormControl, TextField, Table, Button, Stack, Typography } from "@mui/material";
+import Task_Table from "./Task_Table";
 
 
 function View_tasks() {
@@ -11,13 +12,13 @@ function View_tasks() {
     const [id, setid] = useState(null);
 
     useEffect(() => {
-        getUserDetails(); 
+        getUserDetails();
     }, [])
 
 
 
     const getUserDetails = () => {
-        fetch("http://localhost:3000/Task").then((result) => {
+        fetch("http://localhost:7000/Task").then((result) => {
             result.json().then((new_result) => {
                 setdata(new_result);
             })
@@ -26,7 +27,7 @@ function View_tasks() {
 
 
     const deleteUser = (id) => {
-        fetch(`http://localhost:3000/Task/${id}`, {    // here we need to priovide id of record.
+        fetch(`http://localhost:7000/Task/${id}`, {    // here we need to priovide id of record.
             method: "DELETE"
         }).then((result) => {
             result.json().then((new_result) => {
@@ -38,18 +39,17 @@ function View_tasks() {
     }
 
 
-    function selectUser(id) {
-        let val = data[id - 1]
-        setid(val.id);
-        setTaskName(val.taskName);
-        setDOC(val.DOC);
-        settaskinfo(val.taskinfo);
+    const selectUser = (item) => {
+        setid(item.id);
+        setTaskName(item.taskName);
+        setDOC(item.DOC);
+        settaskinfo(item.taskinfo);
     }
 
     // Update data with PUT method :
     const updateUser = () => {
         let item = { id, taskName, DOC, taskinfo };  // taking value in object
-        fetch(`http://localhost:3000/Task/${id}`, {
+        fetch(`http://localhost:7000/Task/${id}`, {
             method: "PUT",
             headers: {
                 "Accept": "application/json",
@@ -65,51 +65,57 @@ function View_tasks() {
         })
     }
 
-   return (
+    return (
         <>
-            <h1>View Component</h1>
-            <form>
-                <label htmlFor="Id">Task Id</label>
-                <input type="text" value={id} id="Id" onChange={(e) => setid(e.target.value)} /> <br /> <br />
+            <Typography variant="h3" marginTop={4} >Manage Your Tasks</Typography>
+            <FormControl sx={{width: "35%", border:"1px solid Gray", padding: "15px", marginTop:"15px"}}>
+                
+                <form>
+                <Stack spacing={2} maxWidth={400} margin="auto" sx={{marginTop: "2%"}}>
+                    <TextField 
+                    type="text" 
+                    value={id} 
+                    id="Id" 
+                    label="Task Id"
+                    variant="filled"
+                    onChange={(e) => setid(e.target.value)} 
+                    /> 
 
+                    <TextField 
+                    type="text" 
+                    value={taskName} 
+                    id="taskname" 
+                    label="Update The Task" 
+                    variant="filled"
+                    onChange={(e) => setTaskName(e.target.value)} 
+                    /> 
 
-                <label htmlFor="taskname">Enter The Task</label>
-                <input type="text" value={taskName} id="taskname" onChange={(e) => setTaskName(e.target.value)} /> <br /> <br />
+                    <TextField 
+                    type="Date" 
+                    value={DOC} 
+                    helperText="date Of Completion"
+                    variant="filled"
+                    onChange={(e) => setDOC(e.target.value)} 
+                    /> 
 
-                <label htmlFor="DOC">Enter The date Of Completion</label>
-                <input type="Date" value={DOC} onChange={(e) => setDOC(e.target.value)} /> <br /> <br />
+            
+                    <TextField 
+                    type="text" 
+                    value={taskinfo}
+                    label="Enter task Info" 
+                    variant="filled"
+                    onChange={(e) => settaskinfo(e.target.value)} 
+                    /> 
+                    <Button onClick={()=>updateUser()} variant="contained" color="primary">Submit</Button> 
+                    {/* <button onClick={updateUser} >Submit</button>  */}
 
-                <label htmlFor="info">Enter the any extra infomation about Task</label>
-                <input type="text" value={taskinfo} onChange={(e) => settaskinfo(e.target.value)} /> <br /> <br />
-                <button onClick={updateUser}>Submit</button> <br />
-            </form>
+                    </Stack>
+                </form>
+                
+            </FormControl>
 
-            <Table striped border={2}>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Task Name</th>
-                        <th>Date Of Completion</th>
-                        <th>Details Of Task</th>
-                        <th>Update Task</th>
-                        <th>Delete Task</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        data.map((items, index) =>
-                            <tr key={index}>
-                                <td>{items.id}</td>
-                                <td>{items.taskName}</td>
-                                <td>{items.DOC}</td>
-                                <td>{items.taskinfo}</td>
-                                <td><button onClick={() => { selectUser(items.id) }}>Edit</button></td>
-                                <td><button onClick={() => { deleteUser(items.id) }}>Delete</button></td>
-                            </tr>
-                        )
-                    }
-                </tbody>
-            </Table>
+            
+            <Task_Table data={data} selectUser={selectUser} deleteUser={deleteUser}></Task_Table>
         </>
     )
 }

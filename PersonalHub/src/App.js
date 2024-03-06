@@ -4,14 +4,14 @@ import './App.css';
 import Add_task from './Components/Add_task';
 import View_tasks from './Components/View_task';
 import React, {useState} from 'react';
+import Login from './Navbar/Login';
+import Footer from './Navbar/Footer';
 
 function App() {
   return (
     <div className="App">
       <Navbar></Navbar>
-      {/* <Add_task></Add_task>
-      <View_tasks></View_tasks> */}
-
+      <Footer></Footer>
     </div>
   );
 }
